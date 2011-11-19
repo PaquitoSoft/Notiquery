@@ -3,19 +3,33 @@
 ;(function($) {
  
     // here it goes!
-    $.fn.pluginName = function(method) {
+    $.fn.notiquery = function(method) {
  
         // plugin's default options
         var defaults = {
  
-            foo: 'bar'
+           parent: '', // This value needs to be set into the initializer
+           height: 50,
+           width: 300,
+           visibleTime: 5000, // notifications are visible for 5 seconds by default
+           locationVType: 'top',
+           locationHType: 'right',
+           locationVBase: 10,
+           locationHBase: 10,
+           notificationsMargin: 5,
+           opacityTransitionTime : 750,
+           closeRelocationTransitionTime: 750,
+           scrollRelocationTransitionTime: 500,
+           notificationOpacity : 0.95 
+           //onShow: callback,
+           //onClose: callback 
  
-        }
+        };
  
         // this will hold the merged default and user-provided properties
         // you will have to access the plugin's properties through this object!
         // settings.propertyName
-        var settings = {}
+        var settings = {};
  
         // public methods
         // to keep the $.fn namespace uncluttered, collect all
@@ -39,28 +53,17 @@
             // the object is created
             init : function(options) {
  
-                // iterate through all the DOM elements we are
-                // attaching the plugin to
-                return this.each(function() {
- 
-                    // the plugin's final properties are the merged default
-                    // and user-provided properties (if any)
-                    // this has the advantage of not polluting the defaults,
-                    // making the same instace re-usable with
-                    // new options; thanks to Steven Black for suggesting this
-                    settings = $.extend({}, defaults, options)
- 
-                    // "element" holds the jQuery object of the current DOM element
-                    var element = $(this);
- 
-                    // code goes here
- 
-                });
+                // the plugin's final properties are the merged default
+                // and user-provided properties (if any)
+                // this has the advantage of not polluting the defaults,
+                // making the same instace re-usable with
+                // new options; thanks to Steven Black for suggesting this
+                settings = $.extend({}, defaults, options)
  
             },
  
-            // a public method. for demonstration purposes only - remove it!
-            foo_public_method: function() {
+            // This will be the main function
+            show: function(options) {
  
                 // code goes here
  
@@ -78,11 +81,23 @@
         // be passed to the method
         var helpers = {
  
-            // a private method. for demonstration purposes only - remove it!
-            foo_private_method: function() {
+            // This method creates instances of the DOM element holding the notification
+            createNotiEl: function() {
  
                 // code goes here
  
+            },
+            
+            show: function(notiEl) {
+             
+            },
+            
+            hide: function(notiEl) {
+             
+            },
+            
+            destroy: function(notiEl) {
+             
             }
  
         }
