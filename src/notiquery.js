@@ -1,5 +1,3 @@
-// remember to change every instance of "pluginName"
-// to the name of your plugin!
 ;(function($) {
  
     // here it goes!
@@ -31,6 +29,10 @@
         // settings.propertyName
         var settings = {};
  
+        // Here we will hold the notification elements we'll need to create
+        // ¿We will always have at least one so the first notification is showed ASAP?
+        var notiEls = [];
+ 
         // public methods
         // to keep the $.fn namespace uncluttered, collect all
         // of the plugin's methods in an object literal and call
@@ -58,14 +60,18 @@
                 // this has the advantage of not polluting the defaults,
                 // making the same instace re-usable with
                 // new options; thanks to Steven Black for suggesting this
-                settings = $.extend({}, defaults, options)
- 
+                settings = $.extend({}, defaults, options);
+                                
             },
  
             // This will be the main function
             show: function(options) {
  
-                // code goes here
+                // We first create the element
+                
+                // Configure the element with received options
+                
+                // Show the element
  
             }
  
@@ -75,7 +81,7 @@
         // these methods can be called only from within the plugin
         //
         // private methods can be called as
-        // helpers.methodName(arg1, arg2, ... argn)
+        // helpers.notiquery(arg1, arg2, ... argn)
         // where "methodName" is the name of a function available in
         // the "helpers" object below; arg1 ... argn are arguments to
         // be passed to the method
@@ -118,7 +124,7 @@
         } else {
  
             // trigger an error
-            $.error( 'Method "' +  method + '" does not exist in pluginName plugin!');
+            $.error( 'Method "' +  method + '" does not exist in notiquery plugin!');
  
         }
  
