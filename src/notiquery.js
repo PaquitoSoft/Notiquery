@@ -68,14 +68,17 @@
             show: function(options) {
  
                 // We first create the element
+                var el = helpers.createNotiEl();
                 
                 // Configure the element with received options
+                helpers.configureEl(options);
                 
                 // Show the element
+                helpers.show(el);
  
             }
  
-        }
+        };
  
         // private methods
         // these methods can be called only from within the plugin
@@ -94,6 +97,10 @@
  
             },
             
+            configureEl: function(options) {
+                
+            },
+            
             show: function(notiEl) {
              
             },
@@ -106,7 +113,7 @@
              
             }
  
-        }
+        };
  
         // if a method as the given argument exists
         if (methods[method]) {
@@ -128,6 +135,6 @@
  
         }
  
-    }
+    };
  
 })(jQuery);
