@@ -1,0 +1,270 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+    
+    <title>Notimo Demos site</title>
+    
+    <link rel="stylesheet" type="text/css" href="styles/main.css">
+    
+    <script type="text/javascript" src="js/mootools-1.2.js"></script>
+    <script type="text/javascript" src="js/Lighter.js"></script> 
+    <script type="text/javascript" src="js/Flame.js"></script> 
+    <script type="text/javascript" src="js/Fuel.js"></script> 
+    <script type="text/javascript" src="js/Fuel_002.js"></script> 
+    
+    <link rel="stylesheet" type="text/css" href="styles/common.css">
+    
+    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.0/jquery.js"></script>
+    <script type="text/javascript" src="../src/notiquery.js"></script> 
+    <link rel="stylesheet" type="text/css" href="../src/notiquery.css">
+    
+    <script type="text/javascript" src="js/syn.js"></script> 
+    
+    <script type="text/javascript" src="js/demo_site.js"></script> 
+    
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+
+</head>
+
+<body>
+
+<!-- Start Wrapper -->
+
+<div id="wrapper">
+
+  <!-- Begin Logo -->
+
+  <div id="leftcolumn">
+
+    <h1><a href="#">Notiquery (by PaquitoSoft)</a></h1>
+
+  </div>
+
+  <!-- End Logo -->
+
+  
+
+  
+
+  <!-- Begin Banner -->
+
+  <div id="summary">
+
+    This website is a placeholder for <b>Notiquery</b> sample demos.<br>
+
+    <b>Notiquery</b> is a <a href="http://www.jquery.com/" target="_blank">jQuery</a> plugin for displaying <a href="http://growl.info/" target="_blank">Growl</a> style notifications 
+
+    to your web visitors.
+
+  </div>
+
+  
+
+  <br>
+
+  <!-- End Banner -->
+
+  
+
+  <!-- Begin Main Left Column -->
+
+  <div class="mainleftcolumn">
+
+    <div class="main-content">
+
+      <h1>Demo 1</h1> <a id="codeOneLink" href="#">Run this code</a>
+      <pre style="display: none;" id="demo1" class="js">
+      
+            // Showing a simple notification
+            $.notiquery('show', {
+            	title: 'Testing notification',
+            	message: 'This is a sample notitication showing how easy is to use Notimoo.'
+            });
+                  
+            // Showing a notification that does not disappear.
+            $.notiquery('show', {
+            	title: 'Testing notification',
+                message: 'This notification will not disapper on its own. You must click on it to close.',
+                sticky: true
+            });
+            
+            // Notification with large text.
+            $.notiquery('show', {
+            	title: 'Testing notification',
+            	message: 'This is a notification with a long text. If the message you provide does not fit into the notification size, Notimoo magically auto resize its height so all the content is visible.'
+            });
+            
+      </pre>
+      <pre class="ltLighter">        
+
+<span class="kw2">var</span> notimooManager <span class="sy0">=</span> <span class="kw2">new</span> Notimoo<span class="br0">(</span><span class="br0">)</span><span class="sy0">;</span>
+
+      
+<span class="co1">
+// Showing a simple notification</span>
+notimooManager.<span class="me0">show</span><span class="br0">(</span><span class="br0">{</span>
+	title<span class="sy0">:</span> <span class="st0">'Testing notification'</span><span class="sy0">,</span>
+	message<span class="sy0">:</span> <span class="st0">'This is a sample notitication showing how easy is to use Notimoo.'</span>
+
+<span class="br0">}</span><span class="br0">)</span><span class="sy0">;</span>
+      <span class="co1">
+// Showing a notification that does not disappear.</span>
+notimooManager.<span class="me0">show</span><span class="br0">(</span><span class="br0">{</span>
+	title<span class="sy0">:</span> <span class="st0">'Testing notification'</span><span class="sy0">,</span>
+
+    message<span class="sy0">:</span> <span class="st0">'This notification will not disapper on its own. You must click on it to close.'</span><span class="sy0">,</span>
+    sticky<span class="sy0">:</span> <span class="kw2">true</span>
+<span class="br0">}</span><span class="br0">)</span><span class="sy0">;</span>
+
+<span class="co1">
+// Notification with large text.</span>
+notimooManager.<span class="me0">show</span><span class="br0">(</span><span class="br0">{</span>
+	title<span class="sy0">:</span> <span class="st0">'Testing notification'</span><span class="sy0">,</span>
+	message<span class="sy0">:</span> <span class="st0">'This is a notification with a long text. If the message you provide does not fit into the notification size, Notimoo magically auto resize its height so all the content is visible.'</span>
+
+<span class="br0">}</span><span class="br0">)</span><span class="sy0">;</span></pre><pre class="ltLighter"><span class="co1">// First of all I create a Notimoo instance with default configuration</span>
+
+<span class="kw2">var</span> notimooManager <span class="sy0">=</span> <span class="kw2">new</span> Notimoo<span class="br0">(</span><span class="br0">)</span><span class="sy0">;</span>
+
+      
+<span class="co1">
+// Showing a simple notification</span>
+notimooManager.<span class="me0">show</span><span class="br0">(</span><span class="br0">{</span>
+	title<span class="sy0">:</span> <span class="st0">'Testing notification'</span><span class="sy0">,</span>
+
+	message<span class="sy0">:</span> <span class="st0">'This is a sample notitication showing how easy is to use Notimoo.'</span>
+<span class="br0">}</span><span class="br0">)</span><span class="sy0">;</span>
+      <span class="co1">
+// Showing a notification that does not disappear.</span>
+notimooManager.<span class="me0">show</span><span class="br0">(</span><span class="br0">{</span>
+
+	title<span class="sy0">:</span> <span class="st0">'Testing notification'</span><span class="sy0">,</span>
+    message<span class="sy0">:</span> <span class="st0">'This notification will not disapper on its own. You must click on it to close.'</span><span class="sy0">,</span>
+    sticky<span class="sy0">:</span> <span class="kw2">true</span>
+
+<span class="br0">}</span><span class="br0">)</span><span class="sy0">;</span>
+<span class="co1">
+// Notification with large text.</span>
+notimooManager.<span class="me0">show</span><span class="br0">(</span><span class="br0">{</span>
+	title<span class="sy0">:</span> <span class="st0">'Testing notification'</span><span class="sy0">,</span>
+
+	message<span class="sy0">:</span> <span class="st0">'This is a notification with a long text. If the message you provide does not fit into the notification size, Notimoo magically auto resize its height so all the content is visible.'</span>
+<span class="br0">}</span><span class="br0">)</span><span class="sy0">;</span></pre>
+
+    </div>
+
+    <div class="main-content">
+
+      <h1>Demo 2</h1> <a id="codeTwoLink" href="#">Run this code</a>
+      <pre style="display: none;" id="demo2" class="js">// Now I create the manager so it will display notifications from the left bottom corner
+var notimooManager = new Notimoo({
+   locationVType: 'bottom',
+   locationHType: 'left'
+});
+
+// Showing a notification with no title
+notimooManager.show({
+   message: 'This is a simple notification message that has no title. This can be useful in some situation when you do not need to label your notification'
+});
+
+// Showing a notification with custom width and for a shorter period of time
+notimooManager.show({
+   title: 'Custom notification',
+   message: 'I override some manager properties for this notification so I can show how you can configure a single one',
+   width: 200, 
+   visibleTime: 2500
+});
+	</pre><pre class="ltLighter"><span class="co1">// Now I create the manager so it will display notifications from the left bottom corner</span>
+<span class="kw2">var</span> notimooManager <span class="sy0">=</span> <span class="kw2">new</span> Notimoo<span class="br0">(</span><span class="br0">{</span>
+
+   locationVType<span class="sy0">:</span> <span class="st0">'bottom'</span><span class="sy0">,</span>
+   locationHType<span class="sy0">:</span> <span class="st0">'left'</span>
+<span class="br0">}</span><span class="br0">)</span><span class="sy0">;</span>
+
+<span class="co1">
+// Showing a notification with no title</span>
+notimooManager.<span class="me0">show</span><span class="br0">(</span><span class="br0">{</span>
+   message<span class="sy0">:</span> <span class="st0">'This is a simple notification message that has no title. This can be useful in some situation when you do not need to label your notification'</span>
+<span class="br0">}</span><span class="br0">)</span><span class="sy0">;</span>
+
+<span class="co1">
+// Showing a notification with custom width and for a shorter period of time</span>
+notimooManager.<span class="me0">show</span><span class="br0">(</span><span class="br0">{</span>
+   title<span class="sy0">:</span> <span class="st0">'Custom notification'</span><span class="sy0">,</span>
+   message<span class="sy0">:</span> <span class="st0">'I override some manager properties for this notification so I can show how you can configure a single one'</span><span class="sy0">,</span>
+
+   width<span class="sy0">:</span> <span class="nu0">200</span><span class="sy0">,</span> 
+   visibleTime<span class="sy0">:</span> <span class="nu0">2500</span>
+<span class="br0">}</span><span class="br0">)</span><span class="sy0">;</span></pre><pre class="ltLighter"><span class="co1">// Now I create the manager so it will display notifications from the left bottom corner</span>
+
+<span class="kw2">var</span> notimooManager <span class="sy0">=</span> <span class="kw2">new</span> Notimoo<span class="br0">(</span><span class="br0">{</span>
+   locationVType<span class="sy0">:</span> <span class="st0">'bottom'</span><span class="sy0">,</span>
+
+   locationHType<span class="sy0">:</span> <span class="st0">'left'</span>
+<span class="br0">}</span><span class="br0">)</span><span class="sy0">;</span>
+<span class="co1">
+// Showing a notification with no title</span>
+notimooManager.<span class="me0">show</span><span class="br0">(</span><span class="br0">{</span>
+
+   message<span class="sy0">:</span> <span class="st0">'This is a simple notification message that has no title. This can be useful in some situation when you do not need to label your notification'</span>
+<span class="br0">}</span><span class="br0">)</span><span class="sy0">;</span>
+<span class="co1">
+// Showing a notification with custom width and for a shorter period of time</span>
+notimooManager.<span class="me0">show</span><span class="br0">(</span><span class="br0">{</span>
+
+   title<span class="sy0">:</span> <span class="st0">'Custom notification'</span><span class="sy0">,</span>
+   message<span class="sy0">:</span> <span class="st0">'I override some manager properties for this notification so I can show how you can configure a single one'</span><span class="sy0">,</span>
+   width<span class="sy0">:</span> <span class="nu0">200</span><span class="sy0">,</span> 
+   visibleTime<span class="sy0">:</span> <span class="nu0">2500</span>
+
+<span class="br0">}</span><span class="br0">)</span><span class="sy0">;</span></pre>    
+  </div>
+
+  </div>
+
+  <!-- End Main Left Column -->
+
+  <!-- Begin Main Right Column -->
+
+  <div class="mainrightcolumn">
+
+    <!-- Begin Right Blue Content -->
+
+    <img src="Notimo%20Demos%20site_files/mainrighttop.jpg" style="display: block;" alt="">
+
+    <div class="left-mid">
+
+      <h1>Downloads</h1>
+
+      <br>
+
+      Curent version is: <b>1.1</b>      
+
+      <br>
+
+      Visit <a href="#" id="projectLink">project's site</a> at Google Code.
+
+      <br><br>
+
+    </div>
+
+    <img src="Notimo%20Demos%20site_files/mainrightbottom.jpg" style="display: block;" alt="bottom banner">
+
+    <!-- End Right Blue Content -->    
+
+  </div>
+
+  <div id="footer"> Copyright © with <a href="http://www.code-sucks.com/">Code-Sucks.com</a> 2006/07
+
+    &nbsp; &nbsp; &nbsp;<a href="http://validator.w3.org/check?uri=referer"><img src="Notimo%20Demos%20site_files/valid-xhtml10.png" alt="Valid XHTML 1.0 Strict" height="31" width="88"></a> <a href="http://jigsaw.w3.org/css-validator/"> <img style="border: 0pt none; width: 88px; height: 31px;" src="Notimo%20Demos%20site_files/vcss.gif" alt="Valid CSS!"> </a> </div>
+
+</div>
+
+<!-- End Wrapper -->
+
+
+
+
+
+</body></html>

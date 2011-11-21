@@ -1,0 +1,40 @@
+/*
+    Document   : notiquery
+    Created on : 21-11-2011, 16:32:46
+    Author     : PaquitoSoft
+    Description:
+        Styles for Notiquery notification system.
+        Change it to meet your needs.
+*/
+
+.notiquery {
+
+    /* Don't touch here */
+    position: absolute;
+    z-index: 999; /* There are some cases where you'll need to change this if you're currently using a greater one in your project */
+    cursor: pointer;    
+    -moz-border-radius: 10px;
+    -webkit-border-radius: 10px;
+    border-radius: 10px;
+
+    /* Change this to fit your needs */
+    padding:10px;
+    border: 3px;
+    border-style: solid;
+    border-color: #B2B2B2;
+    background: #333333;
+    color: #FFFFFF;
+}
+
+.notiquery .title {
+    font-weight: bold;
+    border-bottom: 1px solid;
+}
+
+.notiquery .message {
+    margin-top: 2px;
+}
+
+.notiquery a {
+    color: #FFFFFF;
+}

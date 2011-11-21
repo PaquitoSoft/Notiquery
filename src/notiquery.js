@@ -1,4 +1,4 @@
-;(function($) {
+git;(function($) {
  
     // here it goes!
     $.fn.notiquery = function(method) {
@@ -6,7 +6,7 @@
         // plugin's default options
         var defaults = {
  
-           parent: '', // This value needs to be set into the initializer
+           parent: $(document), 
            height: 50,
            width: 300,
            visibleTime: 5000, // notifications are visible for 5 seconds by default
@@ -71,7 +71,7 @@
                 var el = helpers.createNotiEl();
                 
                 // Configure the element with received options
-                helpers.configureEl(options);
+                helpers.configureEl(el, options);
                 
                 // Show the element
                 helpers.show(el);
@@ -94,23 +94,73 @@
             createNotiEl: function() {
  
                 // code goes here
+                console.log("Here is where I should create the notification DOM element");
+ 
+                var newEl = $(settings.parent).append("<div class='notiquery'><span class='title'></span><div class='message'></div></div>");
+                newEl.css({
+                    settings.locationVType, settings.locationVBase,
+                    settins.locationHType, settings.locationHBase,
+                    'width': settings.width,
+                    'height': settings.height
+                });
+                newEl.click(function(e) {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    this.hide();
+                });
  
             },
             
-            configureEl: function(options) {
+            configureEl: function(notiEl, options) {
+                console.log("Here is where I configure the DOM element with the user params");
+                
+                // Set users params
+                
+                // Locate the element
                 
             },
             
-            show: function(notiEl) {
-             
+            /**
+            * Function to actually show a notification.
+            * @param String title (required) -> Title for the notification
+            * @param String message (required) -> Message for the notification
+            * @param booleam sticky (optional) -> Whether the notification won't be removed until user interaction (defaults to false)
+            * @param int visibleTime (optional) -> Time for the notification to be displayed (in milliseconds). If this isn't provided, the global one will be used.
+            * @param int width (optional) -> Width fot the notification (in pixels). If this isn't provided, the global one will be used.
+            * @param String customClass (optional) -> Custom class you want to apply to this notification. (It can be a list of classes separated by a white space)
+            */
+            show: function(notiEl, options) {
+                console.log("Here is where I actually run show logic (relocating other notifications,...");                
+                notiEl.GET_ELEMENT('.title').text(options.title);
+                notiEl.GET_ELEMENT('.message').text(options.message);
+                notiEl.addClass(options.customClass);
+                
+                notiEl.fadeIn(settings.opacityTransitionTime, function() {
+                    if (!options.sticky) {
+                        setTimeout(function() {
+                            helpers.hide(notiEl);
+                        }, options.visibleTime || settings.visibleTime);
+                    }
+                });
+                
             },
             
             hide: function(notiEl) {
-             
+                console.log("Here is where I actually run the hide logic");
+                
+                // Hide notification
+                notiEl.fadeOut(settings.opacityTransitionTime);
+                
+                // Relocate others
+                if (notiEls.length > 0) {
+                    
+                }
+                
+                // Destroy notification
             },
-            
+                
             destroy: function(notiEl) {
-             
+                console.log("Here is where I destroy the notification DOM el");
             }
  
         };

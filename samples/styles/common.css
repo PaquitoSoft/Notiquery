@@ -1,0 +1,189 @@
+pre.ltLighter {
+    font-family: Monaco, Courier, Monospace;
+    font-size: 12px;
+	overflow: auto;
+	white-space: pre-wrap;
+	word-wrap: break-word;
+}
+
+pre.ltLighter {
+	white-space: -moz-pre-wrap;
+}
+
+pre.ltLighter {
+	white-space: -pre-wrap;
+}
+
+pre.ltLighter {
+	white-space: -o-pre-wrap;
+}
+
+pre.ltLighter {
+	background-color: #fff;
+	padding-left: 15px;
+	padding-right: 5px;
+	padding-top: 5px;
+	padding-bottom: 5px;
+}
+
+pre.ltLighter span {
+	color: black;
+	font-size: 12px;
+}
+
+pre.ltLighter .de1 {
+}
+
+pre.ltLighter .de2 {
+}
+
+pre.ltLighter .kw1 {
+	color: #1b609a;
+}
+
+pre.ltLighter .kw2 {
+	color: #9a6f1b;
+}
+
+pre.ltLighter .kw3 {
+	color: #784e0c;
+}
+
+pre.ltLighter .co1 {
+	color: #888888;
+}
+
+pre.ltLighter .co2 {
+	color: #888888;
+}
+
+pre.ltLighter .st0 {
+	color: #489a1b;
+}
+
+pre.ltLighter .st1 {
+	color: #70483d;
+}
+
+pre.ltLighter .st2 {
+	color: #70483d;
+}
+
+pre.ltLighter .nu0 {
+	color: #70483d;
+}
+
+pre.ltLighter .me0 {
+	color: #666666;
+}
+
+pre.ltLighter .br0 {
+	color: #444444;
+}
+
+pre.ltLighter .sy0 {
+	color: #444444;
+}
+
+pre.ltLighter .es0 {
+	color: #444444;
+}
+
+pre.ltLighter .re0 {
+	color: #784e0c;
+}
+</style><style type="text/css">
+pre.ltLighter {
+	font-family: Monaco, Courier, Monospace;
+	font-size: 12px;
+	overflow: auto;
+	white-space: pre-wrap;
+	word-wrap: break-word;
+}
+
+pre.ltLighter {
+	white-space: -moz-pre-wrap;
+}
+
+pre.ltLighter {
+	white-space: -pre-wrap;
+}
+
+pre.ltLighter {
+	white-space: -o-pre-wrap;
+}
+
+pre.ltLighter {
+	background-color: #fff;
+	padding-left: 15px;
+	padding-right: 5px;
+	padding-top: 5px;
+	padding-bottom: 5px;
+}
+
+pre.ltLighter span {
+	color: black;
+	font-size: 12px;
+}
+
+pre.ltLighter .de1 {
+}
+
+pre.ltLighter .de2 {
+}
+
+pre.ltLighter .kw1 {
+	color: #1b609a;
+}
+
+pre.ltLighter .kw2 {
+	color: #9a6f1b;
+}
+
+pre.ltLighter .kw3 {
+	color: #784e0c;
+}
+
+pre.ltLighter .co1 {
+	color: #888888;
+}
+
+pre.ltLighter .co2 {
+	color: #888888;
+}
+
+pre.ltLighter .st0 {
+	color: #489a1b;
+}
+
+pre.ltLighter .st1 {
+	color: #70483d;
+}
+
+pre.ltLighter .st2 {
+	color: #70483d;
+}
+
+pre.ltLighter .nu0 {
+	color: #70483d;
+}
+
+pre.ltLighter .me0 {
+	color: #666666;
+}
+
+pre.ltLighter .br0 {
+	color: #444444;
+}
+
+pre.ltLighter .sy0 {
+	color: #444444;
+}
+
+pre.ltLighter .es0 {
+	color: #444444;
+}
+
+pre.ltLighter .re0 {
+	color: #784e0c;
+}
