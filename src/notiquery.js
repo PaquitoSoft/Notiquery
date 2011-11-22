@@ -1,12 +1,12 @@
-git;(function($) {
+;(function($) {
  
     // here it goes!
-    $.fn.notiquery = function(method) {
+    var notiquery = function(method) {
  
         // plugin's default options
         var defaults = {
  
-           parent: $(document), 
+           parent: null, 
            height: 50,
            width: 300,
            visibleTime: 5000, // notifications are visible for 5 seconds by default
@@ -67,6 +67,9 @@ git;(function($) {
             // This will be the main function
             show: function(options) {
  
+                // Initialize settings if this is the first call and user didn't configure the plugin
+                if (!settings.visibleTime) settings = $.extend({}, defaults);
+ 
                 // We first create the element
                 var el = helpers.createNotiEl();
                 
@@ -74,7 +77,7 @@ git;(function($) {
                 helpers.configureEl(el, options);
                 
                 // Show the element
-                helpers.show(el);
+                helpers.show(el, options);
  
             }
  
@@ -93,35 +96,56 @@ git;(function($) {
             // This method creates instances of the DOM element holding the notification
             createNotiEl: function() {
  
-                // code goes here
-                console.log("Here is where I should create the notification DOM element");
- 
-                var newEl = $(settings.parent).append("<div class='notiquery'><span class='title'></span><div class='message'></div></div>");
-                newEl.css({
-                    settings.locationVType, settings.locationVBase,
-                    settins.locationHType, settings.locationHBase,
+                // Let's create the notification element and set its default configuration
+                var newEl = $("<div class='notiquery'><span class='title'></span><div class='message'></div></div>");
+                newEl.css({                    
                     'width': settings.width,
                     'height': settings.height
                 });
+                newEl.css(settings.locationVType, settings.locationVBase);
+                newEl.css(settings.locationHType, settings.locationHBase);
                 newEl.click(function(e) {
                     e.preventDefault();
                     e.stopPropagation();
-                    this.hide();
+                    helpers.hide($(this));
                 });
- 
+                
+                // We need to create a wrapper to handle the way it's added to the DOM hidden and the it's shown
+                var wrapper = $("<div class='notiquery_wrapper'></div>");
+                (settings.parent || $('body').last()).append(wrapper);
+                wrapper.hide();
+                wrapper.append(newEl);                
+                
+                // Add the element to the internal array to keep track of it
+                notiEls.push(newEl);
+                
+                return newEl;
             },
             
+            /**
+            * Function to configure a notification.
+            * 
+            * @param String title (required) -> Title for the notification
+            * @param String message (required) -> Message for the notification
+            * @param booleam sticky (optional) -> Whether the notification won't be removed until user interaction (defaults to false)
+            * @param int visibleTime (optional) -> Time for the notification to be displayed (in milliseconds). If this isn't provided, the global one will be used.
+            * @param int width (optional) -> Width fot the notification (in pixels). If this isn't provided, the global one will be used.
+            * @param String customClass (optional) -> Custom class you want to apply to this notification. (It can be a list of classes separated by a white space)
+            */
             configureEl: function(notiEl, options) {
                 console.log("Here is where I configure the DOM element with the user params");
                 
                 // Set users params
-                
-                // Locate the element
+                console.log(options);
+                notiEl.find('.title').text(options.title);
+                notiEl.find('.message').text(options.message);
+                notiEl.addClass(options.customClass);
                 
             },
             
             /**
             * Function to actually show a notification.
+            * 
             * @param String title (required) -> Title for the notification
             * @param String message (required) -> Message for the notification
             * @param booleam sticky (optional) -> Whether the notification won't be removed until user interaction (defaults to false)
@@ -130,37 +154,46 @@ git;(function($) {
             * @param String customClass (optional) -> Custom class you want to apply to this notification. (It can be a list of classes separated by a white space)
             */
             show: function(notiEl, options) {
-                console.log("Here is where I actually run show logic (relocating other notifications,...");                
-                notiEl.GET_ELEMENT('.title').text(options.title);
-                notiEl.GET_ELEMENT('.message').text(options.message);
-                notiEl.addClass(options.customClass);
+                console.log("Here is where I actually run show logic (relocating other notifications,...)");
                 
-                notiEl.fadeIn(settings.opacityTransitionTime, function() {
-                    if (!options.sticky) {
+                if (notiEls.length > 0) {
+                    
+                    // Locate element
+                    
+                    
+                    // Relocate other elements
+                    
+                }
+                
+                // Show element                
+                notiEl.parent('.notiquery_wrapper').fadeIn(settings.opacityTransitionTime, function() {
+                    if (settings.onShow) settings.onShow(newEl);
+                    /*if (!options.sticky) {
                         setTimeout(function() {
                             helpers.hide(notiEl);
                         }, options.visibleTime || settings.visibleTime);
-                    }
-                });
-                
+                    }*/
+                });                
             },
             
             hide: function(notiEl) {
                 console.log("Here is where I actually run the hide logic");
                 
                 // Hide notification
-                notiEl.fadeOut(settings.opacityTransitionTime);
+                console.log("Hide effect time: " + settings.opacityTransitionTime);
+                notiEl.parent('.notiquery_wrapper').fadeOut(settings.opacityTransitionTime, function() {                    
+                    // Destroy notification and remove from current notifications array
+                    if ($.inArray(notiEl, notiEls) >= 0) notiEls.pop(notiEl);
+                    notiEl.parent('.notiquery_wrapper').remove();
+                    
+                    if (settings.onClose) settings.onClose(notiEl);                    
+                });
                 
                 // Relocate others
                 if (notiEls.length > 0) {
                     
                 }
                 
-                // Destroy notification
-            },
-                
-            destroy: function(notiEl) {
-                console.log("Here is where I destroy the notification DOM el");
             }
  
         };
@@ -186,5 +219,7 @@ git;(function($) {
         }
  
     };
+ 
+    $.extend({ 'notiquery': notiquery });
  
 })(jQuery);

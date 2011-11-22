@@ -3,8 +3,8 @@ window.addEvent('domready', function(event) {
     
     // Element style syntax with files inside of a folder called "js".
     $('demo1').light({
-    	altLines: 'hover'
-   	});
+        altLines: 'hover'
+    });
    
     $('demo2').light({altLines: 'hover'});
 
@@ -12,13 +12,16 @@ window.addEvent('domready', function(event) {
 
 jQuery(document).ready(function($) {
 	
-	$('#codeOneLink').click('click', function(event) {
+    console.log("Code inside jQuery ready event");
+    
+	$('#codeOneLink').click(function(event) {
 		//event.stop();
 		//demoCode.demoCodeOne();
 		console.log("Elemento pulsado 1: ");
 		console.log(this);
 		event.preventDefault();
 		event.stopPropagation();
+        demoCode.demoCodeOne();
 	});
 
 	$('#codeTwoLink').click(function(event) {
@@ -38,8 +41,7 @@ var demoCode = {
 		// Showing a simple notification
 		jQuery.notiquery('show', {
 			title: 'Testing notification',
-			message: 'This is a sample notitication showing how easy is to use Notimoo.',
-			customClass: 'alert1'
+			message: 'This is a sample notitication showing how easy is to use Notimoo.'			
 		});
 		      
 		// Showing a notification that does not disappear.

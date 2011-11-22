@@ -94,6 +94,7 @@ body {
 .left-mid {
     background-color: #F1F4F8;
     padding: 0 16px;
+    border-radius: 10px;
 }
 .left-bottom {
     background-color: #FFFFFF;
