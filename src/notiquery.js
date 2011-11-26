@@ -1,37 +1,38 @@
 ;(function($) {
+
+    // plugin's default options
+    var defaults = {
+
+       parent: null, 
+       height: 50,
+       width: 300,
+       visibleTime: 5000, // notifications are visible for 5 seconds by default
+       locationVType: 'top',
+       locationHType: 'right',
+       locationVBase: 10,
+       locationHBase: 10,
+       notificationsMargin: 5,
+       opacityTransitionTime : 750,
+       closeRelocationTransitionTime: 750,
+       scrollRelocationTransitionTime: 500,
+       notificationOpacity : 0.95 
+       //onShow: callback,
+       //onClose: callback 
+
+    };
+
+    // this will hold the merged default and user-provided properties
+    // you will have to access the plugin's properties through this object!
+    // settings.propertyName
+    var settings = {};
+
+    // Here we will hold the notification elements we'll need to create
+    // ¿We will always have at least one so the first notification is showed ASAP?
+    var notiEls = [];
+
  
     // here it goes!
     var notiquery = function(method) {
- 
-        // plugin's default options
-        var defaults = {
- 
-           parent: null, 
-           height: 50,
-           width: 300,
-           visibleTime: 5000, // notifications are visible for 5 seconds by default
-           locationVType: 'top',
-           locationHType: 'right',
-           locationVBase: 10,
-           locationHBase: 10,
-           notificationsMargin: 5,
-           opacityTransitionTime : 750,
-           closeRelocationTransitionTime: 750,
-           scrollRelocationTransitionTime: 500,
-           notificationOpacity : 0.95 
-           //onShow: callback,
-           //onClose: callback 
- 
-        };
- 
-        // this will hold the merged default and user-provided properties
-        // you will have to access the plugin's properties through this object!
-        // settings.propertyName
-        var settings = {};
- 
-        // Here we will hold the notification elements we'll need to create
-        // ¿We will always have at least one so the first notification is showed ASAP?
-        var notiEls = [];
  
         // public methods
         // to keep the $.fn namespace uncluttered, collect all
@@ -136,10 +137,20 @@
                 console.log("Here is where I configure the DOM element with the user params");
                 
                 // Set users params
-                console.log(options);
                 notiEl.find('.title').text(options.title);
                 notiEl.find('.message').text(options.message);
                 notiEl.addClass(options.customClass);
+            
+                // Check for a custom width
+                if (options.width) {
+                    notiEl.css('width', options.width);   
+                }
+                
+                // Once the notification is populated, we check to see if there is any link inside so we can
+                // configure it in order not to close the notification when it's clicked
+                notiEl.find('a').click(function(event) {           
+                    event.stopPropagation();
+                });
                 
             },
             
@@ -156,9 +167,12 @@
             show: function(notiEl, options) {
                 console.log("Here is where I actually run show logic (relocating other notifications,...)");
                 
-                if (notiEls.length > 0) {
+                if ((notiEls.length - 1) > 0) {
                     
                     // Locate element
+                    var lastNot = notiEls[notiEls.length - 2];
+                    var basePosition = parseInt(lastNot.css(settings.locationVType)) + lastNot.outerHeight() + settings.notificationsMargin;
+                    notiEl.css(settings.locationVType, basePosition);
                     
                     
                     // Relocate other elements
