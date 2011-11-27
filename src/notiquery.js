@@ -105,11 +105,13 @@
                 });
                 newEl.css(settings.locationVType, settings.locationVBase);
                 newEl.css(settings.locationHType, settings.locationHBase);
+                $.data(newEl, 'id', $.now());                
                 newEl.click(function(e) {
                     e.preventDefault();
                     e.stopPropagation();
-                    helpers.hide($(this));
+                    helpers.hide(newEl);
                 });
+                
                 
                 // We need to create a wrapper to handle the way it's added to the DOM hidden and the it's shown
                 var wrapper = $("<div class='notiquery_wrapper'></div>");
@@ -174,9 +176,6 @@
                     var basePosition = parseInt(lastNot.css(settings.locationVType)) + lastNot.outerHeight() + settings.notificationsMargin;
                     notiEl.css(settings.locationVType, basePosition);
                     
-                    
-                    // Relocate other elements
-                    
                 }
                 
                 // Show element                
@@ -195,19 +194,63 @@
                 
                 // Hide notification
                 console.log("Hide effect time: " + settings.opacityTransitionTime);
-                notiEl.parent('.notiquery_wrapper').fadeOut(settings.opacityTransitionTime, function() {                    
+                notiEl.parent('.notiquery_wrapper').fadeOut(settings.opacityTransitionTime, function() {
+                    var effectProps = {};
+                    var emptyHeight = notiEl.outerHeight() + settings.notificationsMargin;
+                    
                     // Destroy notification and remove from current notifications array
-                    if ($.inArray(notiEl, notiEls) >= 0) notiEls.pop(notiEl);
+                    console.log("Identificador del elemento cerrado: " + $.data(notiEl, 'id'));
+                    console.log("------");
+                    var notiElIndex = helpers.notificationIndex(notiEl);
+                    $.each(notiEls, function() {
+                        console.log("Identificador del elemento iterado: " + $.data(this, 'id'));
+                    });
+                    console.log("Indice del elemento cerrado: " + notiElIndex);
+                    notiEls.splice(notiElIndex, 1);
+                    console.log("2.- Size: " + notiEls.length);
+                    $.each(notiEls, function() {
+                        console.log("Identificador del elemento iterado: " + $.data(this, 'id'));
+                    });
                     notiEl.parent('.notiquery_wrapper').remove();
                     
-                    if (settings.onClose) settings.onClose(notiEl);                    
+                    // Once the notification is hidden and removed from the DOM, 
+                    // we execute the callback
+                    if (settings.onClose) settings.onClose();
+                        
+                    // Relocate other notifications following the closed one
+                    if (notiEls.length > 0) {
+                        console.log("Ahora hay que recolocar " + notiEls.length + " notificaciones");
+                        console.log('Indice de la notificacion eliminada: ' + notiElIndex);
+                        console.log("Numero de notificaciones obtenidas del array principal: " + (notiEls.slice(notiElIndex).length));
+                        $.each(notiEls.slice(notiElIndex), function(index) {
+                            console.log("Identificador del elemento iterado: " + $.data(this, 'id'));                        
+                            effectProps[settings.locationVType] = '-=' + emptyHeight;
+                            this.animate(effectProps, settings.closeRelocationTransitionTime);
+                        });                        
+                    }
+                    
                 });
                 
-                // Relocate others
-                if (notiEls.length > 0) {
-                    
-                }
-                
+            },
+            
+            /**
+            * Looks for the index of provided notification into the internal 
+            * Array we hold with alive notifications.
+            * @param notiEl -> notification to look for
+            * @return integer -> index of the notification or -1 if it doesn't exists
+            */
+            notificationIndex: function(notiEl) {                
+                var result = -1;
+                var id = $.data(notiEl, 'id');
+                //console.log("Buscando elemento con id: " + id);
+                $.each(notiEls, function(index) {
+                    //console.log("Elemento iterado: " + $.data(this, 'id'));
+                    if (id == $.data(this, 'id')) {
+                        result = index;
+                        return;
+                    }
+                });
+                return result;
             }
  
         };

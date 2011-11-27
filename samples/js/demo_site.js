@@ -15,10 +15,6 @@ jQuery(document).ready(function($) {
     console.log("Code inside jQuery ready event");
     
 	$('#codeOneLink').click(function(event) {
-		//event.stop();
-		//demoCode.demoCodeOne();
-		console.log("Elemento pulsado 1: ");
-		console.log(this);
 		event.preventDefault();
 		event.stopPropagation();
         demoCode.demoCodeOne();
