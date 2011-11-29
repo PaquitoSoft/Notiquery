@@ -1,4 +1,4 @@
-;(function($) {
+;(function($) { 
 
     // plugin's default options
     var defaults = {
@@ -15,6 +15,7 @@
        opacityTransitionTime : 500,
        closeRelocationTransitionTime: 500,
        scrollRelocationTransitionTime: 500,
+       scrollEffectTimeout: 100,
        notificationOpacity : 0.95 
        //onShow: callback,
        //onClose: callback 
@@ -55,7 +56,7 @@
             // this the constructor method that gets called when
             // the object is created
             init : function(options) {
- 
+                console.time("init");
                 // the plugin's final properties are the merged default
                 // and user-provided properties (if any)
                 // this has the advantage of not polluting the defaults,
@@ -65,18 +66,22 @@
                 
                 if (!settings.parent) settings.parent = $('body').last();
                 
-                settings.parent.scroll(function() {
-                    helpers.scrollEventHandler();
+                console.dir(settings.parent);
+                //settings.parent.scroll(function() {
+                $(window).scroll(function() {
+                    console.log("Se ha movido el scroll de la pagina!");
                     clearTimeout(settings.scrollTimeout);
-                    settings.scrollTimeout = setTimeout(helpers.scrollEventHandler, 250);
+                    settings.scrollTimeout = setTimeout(helpers.scrollEventHandler, settings.scrollEffectTimeout);
                 });
+                console.timeEnd("init");
             },
  
             // This will be the main function
             show: function(options) {
                 console.time("public_show");
                 // Initialize settings if this is the first call and user didn't configure the plugin
-                if (!settings.visibleTime) settings = $.extend({}, defaults);
+                //if (!settings.visibleTime) settings = $.extend({}, defaults);
+                if (!settings.visibleTime) methods.init(options);
  
                 // We first create the element
                 var el = helpers.createNotiEl();
@@ -172,22 +177,25 @@
             show: function(notiEl, options) {
                 console.time("private_show");
                 
+                var sets = settings;
                 if ((notiEls.length - 1) > 0) {
                     
                     // Locate element
                     var lastNot = notiEls[notiEls.length - 2];
-                    var basePosition = parseInt(lastNot.css(settings.locationVType), 10) + lastNot.outerHeight() + settings.notificationsMargin;
-                    notiEl.css(settings.locationVType, basePosition);
+                    var basePosition = parseInt(lastNot.css(sets.locationVType), 10) + lastNot.outerHeight() + sets.notificationsMargin;
+                    notiEl.css(sets.locationVType, basePosition);
                     
+                } else {
+                    notiEl.css(sets.locationVType, ((sets.locationVType == 'top') ? '+' : '-') + '=' + sets.parent.scrollTop()); 
                 }
                 
-                // Show element                
-                notiEl.parent('.notiquery_wrapper').fadeIn(settings.opacityTransitionTime, function() {
-                    if (settings.onShow) settings.onShow(newEl);
+                // Show element
+                notiEl.parent('.notiquery_wrapper').fadeIn(sets.opacityTransitionTime, function() {
+                    if (sets.onShow) sets.onShow(newEl);
                     if (!options.sticky) {
                         setTimeout(function() {
                             helpers.hide(notiEl);
-                        }, options.visibleTime || settings.visibleTime);
+                        }, options.visibleTime || sets.visibleTime);
                     }
                 });
                 console.timeEnd("private_show");
@@ -244,9 +252,20 @@
             
             scrollEventHandler: function() {
                 console.time("scrollEventHandler");
-                var sign = (settings.locationVType == 'top') ? '+' : '-';
-                var pos = sign + '=' + settings.parent.scrollTop();
-                console.log("Modificaremos el posicionamiento vertical de la notificacion: " + pos);
+                
+                var sets = settings;
+                var basePos = sets.locationVBase;
+                if (sets.locationVType == 'top') {
+                    basePos += sets.parent.scrollTop();
+                } else {
+                    basePos -= sets.parent.scrollTop();
+                }
+                var effectProps = {};
+                $.each(notiEls, function(i, el) {
+                    effectProps[sets.locationVType] = basePos;
+                    this.animate(effectProps, sets.scrollRelocationTransitionTime);                    
+                    basePos += el.outerHeight() + sets.notificationsMargin;                
+                });
                 
                 console.timeEnd("scrollEventHandler");
             }

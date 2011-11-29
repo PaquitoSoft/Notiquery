@@ -37,7 +37,8 @@ var demoCode = {
 		// Showing a simple notification
 		jQuery.notiquery('show', {
 			title: 'Testing notification',
-			message: 'This is a sample notitication showing how easy is to use Notimoo.'			
+			message: 'This is a sample notitication showing how easy is to use Notimoo.',
+            sticky: true
 		});
 		      
 		// Showing a notification that does not disappear.
