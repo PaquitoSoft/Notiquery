@@ -41,24 +41,24 @@ var demoCode = {
 		});
 		      
 		// Showing a notification that does not disappear.
-		(function() {
+		setTimeout(function() {
 		   jQuery.notiquery('show', {
 			title: 'Testing notification',
 		    message: 'This notification will not disapper on its own. You must click on it to close.',
 		    customClass: 'alert2',
 		    sticky: true
 		   });
-		}).delay(2000, this);
+		}, 2000);
 		      
 
 		// Notification with large text.
-		(function() {
+		setTimeout(function() {
 		   jQuery.notiquery('show', {
 			title: 'Testing notification',
 			message: 'This is a notification with a long text. If the message you provide does not fit into the notification size, Notimoo magically auto resize its height so all the content is visible.',
 			customClass: 'alert1'
 		    });
-		}).delay(4000, this);
+		}, 4000);
 		
 		
 	},
