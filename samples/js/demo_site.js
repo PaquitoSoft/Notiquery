@@ -37,12 +37,11 @@ var demoCode = {
 		// Showing a simple notification
 		jQuery.notiquery('show', {
 			title: 'Testing notification',
-			message: 'This is a sample notitication showing how easy is to use Notimoo.',
-            sticky: true
+			message: 'This is a sample notitication showing how easy is to use Notimoo.'
 		});
 		      
 		// Showing a notification that does not disappear.
-		/*(function() {
+		(function() {
 		   jQuery.notiquery('show', {
 			title: 'Testing notification',
 		    message: 'This notification will not disapper on its own. You must click on it to close.',
@@ -60,7 +59,7 @@ var demoCode = {
 			customClass: 'alert1'
 		    });
 		}).delay(4000, this);
-		*/
+		
 		
 	},
 	
