@@ -56,7 +56,8 @@ var demoCode = {
 		   jQuery.notiquery('show', {
 			title: 'Testing notification',
 			message: 'This is a notification with a long text. If the message you provide does not fit into the notification size, Notimoo magically auto resize its height so all the content is visible.',
-			customClass: 'alert1'
+			customClass: 'alert1',
+            sticky: true
 		    });
 		}, 4000);
 		

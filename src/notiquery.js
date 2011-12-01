@@ -107,8 +107,8 @@
                 // Let's create the notification element and set its default configuration
                 var newEl = $("<div class='notiquery'><span class='title'></span><div class='message'></div></div>");
                 newEl.css({                    
-                    'width': settings.width,
-                    'height': settings.height
+                    'width': settings.width/*,
+                    'height': settings.height*/
                 });
                 newEl.css(settings.locationVType, settings.locationVBase);
                 newEl.css(settings.locationHType, settings.locationHBase);
@@ -150,7 +150,7 @@
                 notiEl.find('.title').text(options.title);
                 notiEl.find('.message').text(options.message);
                 notiEl.addClass(options.customClass);
-            
+                
                 // Check for a custom width
                 if (options.width) {
                     notiEl.css('width', options.width);   
@@ -191,7 +191,9 @@
                 
                 // Show element
                 notiEl.parent('.notiquery_wrapper').fadeIn(sets.opacityTransitionTime, function() {
-                    if (sets.onShow) sets.onShow(newEl);
+                    notiEl.css('height', notiEl.height()); // It seems to me that jQuery does not return its actual height until the element is visible
+                    if (sets.onShow) { sets.onShow(newEl); }
+                    
                     if (!options.sticky) {
                         setTimeout(function() {
                             helpers.hide(notiEl);
