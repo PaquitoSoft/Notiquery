@@ -6,7 +6,7 @@
        parent: null, 
        height: 50,
        width: 300,
-       visibleTime: 5000, // notifications are visible for 5 seconds by default
+       visibleTime: 5000, 
        locationVType: 'top',
        locationHType: 'right',
        locationVBase: 10,
@@ -22,65 +22,46 @@
 
     };
 
-    // this will hold the merged default and user-provided properties
-    // you will have to access the plugin's properties through this object!
-    // settings.propertyName
+    // Default properties merged with user provided ones
     var settings = {};
 
     // Here we will hold the notification elements we'll need to create
-    // ¿We will always have at least one so the first notification is showed ASAP?
     var notiEls = [];
 
- 
     // here it goes!
     var notiquery = function(method) {
  
-        // public methods
-        // to keep the $.fn namespace uncluttered, collect all
-        // of the plugin's methods in an object literal and call
-        // them by passing the string name of the method to the plugin
-        //
-        // public methods can be called as
-        // $(selector).pluginName('methodName', arg1, arg2, ... argn)
-        // where "pluginName" is the name of your plugin and "methodName"
-        //is the name of a function available in
-        // the "methods" object below;
-        // arg1 ... argn are arguments to be passed to the method
-        //
-        // or, from within the plugin itself, as
-        // methods.methodName(arg1, arg2, ... argn)
-        // where "methodName" is the name of a function available
-        // in the "methods" object below
+        // Public methods
         var methods = {
  
             // this the constructor method that gets called when
             // the object is created
             init : function(options) {
-                console.time("init");
-                // the plugin's final properties are the merged default
-                // and user-provided properties (if any)
-                // this has the advantage of not polluting the defaults,
-                // making the same instace re-usable with
-                // new options; thanks to Steven Black for suggesting this
+				var firstCall = !settings.visibleTime;
                 settings = $.extend({}, defaults, options);
                 
-                if (!settings.parent) settings.parent = $('body').last();
+                // Ensure parent
+	            if (!settings.parent) settings.parent = $('body').last();
                 
-                console.dir(settings.parent);
-                //settings.parent.scroll(function() {
-                $(window).scroll(function() {
-                    console.log("Se ha movido el scroll de la pagina!");
-                    clearTimeout(settings.scrollTimeout);
-                    settings.scrollTimeout = setTimeout(helpers.scrollEventHandler, settings.scrollEffectTimeout);
-                });
-                console.timeEnd("init");
+                // If you change plugin options I remove previous notifications
+                $.each(notiEls, function(notiEl) {
+            		this.parent('.notiquery_wrapper').remove();
+            	});
+            	notiEls = [];
+                
+                // Do not add the same handle to scroll event everytime a user update plugin options
+                if (firstCall) {                	
+					// Handle scrolling
+        	        $(window).scroll(function() {
+            	        clearTimeout(settings.scrollTimeout);
+                	    settings.scrollTimeout = setTimeout(helpers.scrollEventHandler, settings.scrollEffectTimeout);
+	                });	
+                }            
             },
  
             // This will be the main function
             show: function(options) {
-                console.time("public_show");
                 // Initialize settings if this is the first call and user didn't configure the plugin
-                //if (!settings.visibleTime) settings = $.extend({}, defaults);
                 if (!settings.visibleTime) methods.init(options);
  
                 // We first create the element
@@ -91,8 +72,6 @@
                 
                 // Show the element
                 helpers.show(el, options);
- 
-                console.timeEnd("public_show");
             }
  
         };
@@ -100,9 +79,10 @@
         // private methods
         var helpers = {
  
-            // This method creates instances of the DOM element holding the notification
+            /** 
+             * This method creates instances of the DOM element holding the notification
+             */
             createNotiEl: function() {
-                console.time("createNotiEl");
  
                 // Let's create the notification element and set its default configuration
                 var newEl = $("<div class='notiquery'><span class='title'></span><div class='message'></div></div>");
@@ -129,7 +109,6 @@
                 // Add the element to the internal array to keep track of it
                 notiEls.push(newEl);
                 
-                console.timeEnd("createNotiEl");
                 return newEl;
             },
             
@@ -144,7 +123,6 @@
             * @param String customClass (optional) -> Custom class you want to apply to this notification. (It can be a list of classes separated by a white space)
             */
             configureEl: function(notiEl, options) {
-                console.time("configureEl");
                 
                 // Set users params
                 notiEl.find('.title').text(options.title);
@@ -161,7 +139,6 @@
                 notiEl.find('a').click(function(event) {           
                     event.stopPropagation();
                 });
-                console.timeEnd("configureEl");
             },
             
             /**
@@ -174,9 +151,7 @@
             * @param int width (optional) -> Width fot the notification (in pixels). If this isn't provided, the global one will be used.
             * @param String customClass (optional) -> Custom class you want to apply to this notification. (It can be a list of classes separated by a white space)
             */
-            show: function(notiEl, options) {
-                console.time("private_show");
-                
+            show: function(notiEl, options) {              
                 var sets = settings;
                 if ((notiEls.length - 1) > 0) {
                     
@@ -200,11 +175,12 @@
                         }, options.visibleTime || sets.visibleTime);
                     }
                 });
-                console.timeEnd("private_show");
             },
             
+            /**
+             * Here is where we handle notification hide effect
+             */
             hide: function(notiEl) {
-                console.time("hide");
                 
                 // Hide notification
                 notiEl.parent('.notiquery_wrapper').fadeOut(settings.opacityTransitionTime, function() {
@@ -213,8 +189,8 @@
                     
                     // Destroy notification and remove from current notifications array
                     var notiElIndex = helpers.notificationIndex(notiEl);
-                    notiEls.splice(notiElIndex, 1);                    
-                    notiEl.parent('.notiquery_wrapper').remove();                    
+                    notiEls.splice(notiElIndex, 1);
+                    notiEl.parent('.notiquery_wrapper').remove();
                     
                     // Once the notification is hidden and removed from the DOM, 
                     // we execute the callback
@@ -229,7 +205,6 @@
                     }
                     
                 });
-                console.timeEnd("hide");
             },
             
             /**
@@ -239,7 +214,6 @@
             * @return integer -> index of the notification or -1 if it doesn't exists
             */
             notificationIndex: function(notiEl) {
-                console.time('notificationIndex');
                 var result = -1;
                 var id = $.data(notiEl, 'id');                
                 $.each(notiEls, function(index) {                    
@@ -248,13 +222,13 @@
                         return;
                     }
                 });
-                console.timeEnd('notificationIndex');
                 return result;
             },
             
-            scrollEventHandler: function() {
-                console.time("scrollEventHandler");
-                
+            /**
+             * This function is the one which handles the scrolling
+             */
+            scrollEventHandler: function() {                
                 var sets = settings;
                 var basePos = sets.locationVBase;
                 if (sets.locationVType == 'top') {
@@ -267,9 +241,7 @@
                     effectProps[sets.locationVType] = basePos;
                     this.animate(effectProps, sets.scrollRelocationTransitionTime);                    
                     basePos += el.outerHeight() + sets.notificationsMargin;                
-                });
-                
-                console.timeEnd("scrollEventHandler");
+                });                
             }
  
         };

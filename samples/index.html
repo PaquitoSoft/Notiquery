@@ -6,21 +6,26 @@
     <title>Notimo Demos site</title>
     
     <link rel="stylesheet" type="text/css" href="styles/main.css">
-    
+    <!--
     <script type="text/javascript" src="js/mootools-1.2.5.js"></script>
     <script type="text/javascript" src="js/Flame.js"></script> 
     <script type="text/javascript" src="js/Lighter.js"></script>     
     <script type="text/javascript" src="js/Fuel.js"></script> 
     <script type="text/javascript" src="js/Fuel_002.js"></script> 
-    
+    -->
     <link rel="stylesheet" type="text/css" href="styles/common.css">
     
     <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.0/jquery.js"></script>
+	
+	<!-- Syntax highlighter -->    
+	<script type="text/javascript" src="js/jquery.snippet.js"></script>
+	<link rel="stylesheet" type="text/css" href="styles/jquery.snippet.css" />
+
     <script type="text/javascript" src="../src/notiquery.js"></script> 
     <link rel="stylesheet" type="text/css" href="../src/notiquery.css">
-    
+    <!--
     <script type="text/javascript" src="js/syn.js"></script> 
-    
+    -->
     <script type="text/javascript" src="js/demo_site.js"></script> 
     
     <meta http-equiv="content-type" content="text/html; charset=UTF-8">
@@ -53,9 +58,7 @@
 
     This website is a placeholder for <b>Notiquery</b> sample demos.<br>
 
-    <b>Notiquery</b> is a <a href="http://www.jquery.com/" target="_blank">jQuery</a> plugin for displaying <a href="http://growl.info/" target="_blank">Growl</a> style notifications 
-
-    to your web visitors.
+    <b>Notiquery</b> is a <a href="http://www.jquery.com/" target="_blank">jQuery</a> plugin for displaying <a href="http://growl.info/" target="_blank">Growl</a> style notifications <br/> to your web visitors.
 
   </div>
 
@@ -74,54 +77,56 @@
     <div class="main-content">
 
       <h1>Demo 1</h1> <a id="codeOneLink" href="#">Run this code</a>
-      <pre style="display: none;" id="demo1" class="js">
-      
-            // Showing a simple notification
-            $.notiquery('show', {
-            	title: 'Testing notification',
-            	message: 'This is a sample notitication showing how easy is to use Notimoo.'
-            });
-                  
-            // Showing a notification that does not disappear.
-            $.notiquery('show', {
-            	title: 'Testing notification',
-                message: 'This notification will not disapper on its own. You must click on it to close.',
-                sticky: true
-            });
-            
-            // Notification with large text.
-            $.notiquery('show', {
-            	title: 'Testing notification',
-            	message: 'This is a notification with a long text. If the message you provide does not fit into the notification size, Notimoo magically auto resize its height so all the content is visible.'
-            });
-            
+      <pre id="demo1">
+   
+// Showing a simple notification
+$.notiquery('show', {
+	title: 'Testing notification',
+    message: 'This is a sample notitication showing how easy is to use Notiquery.'
+});
+               
+// Showing a notification that does not disappear.
+$.notiquery('show', {
+	title: 'Testing notification',
+    message: 'This notification will not disapper on its own. You must click on it to close.',
+    sticky: true
+});
+         
+// Notification with large text.
+$.notiquery('show', {
+	title: 'Testing notification',
+    message: 'This is a notification with a long text. If the message you provide does not fit into the notification size, Notiquery magically auto resize its height so all the content is visible.',
+    customClass: 'alert1'
+});         
       </pre>
 
     </div>
 
+	<br/>
     <div class="main-content">
 
       <h1>Demo 2</h1> <a id="codeTwoLink" href="#">Run this code</a>
-      <pre style="display: none;" id="demo2" class="js">
+      <pre id="demo2">
 
-        // Now I create the manager so it will display notifications from the left bottom corner
-        var notimooManager = new Notimoo({
-           locationVType: 'bottom',
-           locationHType: 'left'
-        });
+// Here I show how you can configure default options if you don't want 
+// to use the out-of-the-box ones (changing notifications location)
+$.notiquery({
+	locationVType: 'bottom',
+    locationHType: 'left'
+});
         
-        // Showing a notification with no title
-        notimooManager.show({
-           message: 'This is a simple notification message that has no title. This can be useful in some situation when you do not need to label your notification'
-        });
+// Showing a notification with no title
+$.notiquery({
+	message: 'This is a simple notification message that has no title. This can be useful in some situation when you do not need to label your notification'
+});
         
-        // Showing a notification with custom width and for a shorter period of time
-        notimooManager.show({
-           title: 'Custom notification',
-           message: 'I override some manager properties for this notification so I can show how you can configure a single one',
-           width: 200, 
-           visibleTime: 2500
-        });
+// Showing a notification with custom width and for a shorter period of time
+$.notiquery({
+	title: 'Custom notification',
+    message: 'I override some plugin default properties for this notification so I can show how you can configure a single one',
+    width: 200, 
+    visibleTime: 2500
+});
 	</pre>
      
   </div>

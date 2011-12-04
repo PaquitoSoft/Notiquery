@@ -1,31 +1,23 @@
 $.noConflict();
-window.addEvent('domready', function(event) {
-    
-    // Element style syntax with files inside of a folder called "js".
-    $('demo1').light({
-        altLines: 'hover'
-    });
-   
-    $('demo2').light({altLines: 'hover'});
-
-});
 
 jQuery(document).ready(function($) {
 	
-    console.log("Code inside jQuery ready event");
+    // Highlight code
+    $('#demo1').snippet('javascript', {style: 'emacs', showNum: false});
+    $('#demo2').snippet('javascript', {style: 'emacs', showNum: false});
     
+    // Execute first demo code
 	$('#codeOneLink').click(function(event) {
 		event.preventDefault();
 		event.stopPropagation();
         demoCode.demoCodeOne();
 	});
 
+	// Execute second demo code
 	$('#codeTwoLink').click(function(event) {
-		//event.stop();
-		//demoCode.demoCodeTwo();
-		console.log("Elemento pulsado 2: ");
-		console.log(this);
+		event.preventDefault();
 		event.stopPropagation();
+        demoCode.demoCodeTwo();
 	});
   
 });
@@ -37,7 +29,7 @@ var demoCode = {
 		// Showing a simple notification
 		jQuery.notiquery('show', {
 			title: 'Testing notification',
-			message: 'This is a sample notitication showing how easy is to use Notimoo.'
+			message: 'This is a sample notitication showing how easy is to use Notiquery.'
 		});
 		      
 		// Showing a notification that does not disappear.
@@ -45,26 +37,26 @@ var demoCode = {
 		   jQuery.notiquery('show', {
 			title: 'Testing notification',
 		    message: 'This notification will not disapper on its own. You must click on it to close.',
-		    customClass: 'alert2',
 		    sticky: true
 		   });
-		}, 2000);
+		}, 1000);
 		      
 
-		// Notification with large text.
+		// Notification with large text with a custom class (change border color).
 		setTimeout(function() {
 		   jQuery.notiquery('show', {
 			title: 'Testing notification',
-			message: 'This is a notification with a long text. If the message you provide does not fit into the notification size, Notimoo magically auto resize its height so all the content is visible.',
-			customClass: 'alert1',
-            sticky: true
+			message: 'This is a notification with a long text. If the message you provide does not fit into the notification size, Notiquery magically auto resize its height so all the content is visible.',
+			customClass: 'alert1'
 		    });
-		}, 4000);
+		}, 2000);
 		
 		
 	},
 	
 	demoCodeTwo: function() {
+
+		//jQuery.notiquery('reset');
 
 		// Change Notiquery configuration
 		jQuery.notiquery({
@@ -78,14 +70,14 @@ var demoCode = {
 		});
 		
 		// Showing a notification with custom width and for a shorter period of time
-		(function() {
+		setTimeout(function() {
 			jQuery.notiquery('show', {
 		   		title: 'Custom notification',
-		   		message: 'I override some manager properties for this notification so I can show how you can configure a single one',
+		   		message: 'I override some plugin default properties for this notification so I can show how you can configure a single one',
 		   		width: 200, 
 		   		visibleTime: 2500
 			});	
-		} ).delay(1500, this);
+		}, 1000);
 		
 	}
 	
