@@ -181,11 +181,11 @@
              * Here is where we handle notification hide effect
              */
             hide: function(notiEl) {
+                var emptyHeight = notiEl.outerHeight() + settings.notificationsMargin;
                 
                 // Hide notification
                 notiEl.parent('.notiquery_wrapper').fadeOut(settings.opacityTransitionTime, function() {
                     var effectProps = {};
-                    var emptyHeight = notiEl.outerHeight() + settings.notificationsMargin;
                     
                     // Destroy notification and remove from current notifications array
                     var notiElIndex = helpers.notificationIndex(notiEl);
