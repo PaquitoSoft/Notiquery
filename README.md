@@ -5,7 +5,7 @@ This plugin provides the web developer with a way to show notification to the us
 
 This is a jQuery port of my previous [Mootools](http://www.mootools.net) plugin called [Notimoo](http://github.com/PaquitoSoft/Notimoo).
 
-
+Checkout the [**DEMO**](http://paquitosoft.com/notiquery) site.
 
 How to use
 ----------
